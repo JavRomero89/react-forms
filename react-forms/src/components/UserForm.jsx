@@ -16,7 +16,7 @@ function UserForm({ setUsers }) {
 		const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
 		setUser({
             ...user,
-            [e.target.name]: value
+            [event.target.name]: value
         });
     };
 
@@ -31,10 +31,11 @@ function UserForm({ setUsers }) {
             teléfono: '',
             gender: '',
             typeAccount: '',
-            aceptoPublicidad: false
+            aceptoPublicidad:'',
         });
     };
 	return (
+		<div className='flex flex-col items-center  p-[15px] my-10 '>
 		<form onSubmit={handleSubmit}>
 			<label>Enter your name:</label>
 			<input type="text" name="name" value={user.name} onChange={handleInput} />
@@ -55,8 +56,18 @@ function UserForm({ setUsers }) {
 			<label htmlFor="otro">Otro/Prefiero No Decirlo</label>
 			<input type="radio" name="gender" value='otro' onChange={handleInput} />
 
+			<label>Tipo de Cuenta</label>
+			<select type="radio" name="typeAccount" value='' onChange={handleInput}>
+						<option>Básica</option>
+                        <option>Premium</option>
+                        <option>Business</option>
+			</select>
+
+			<input type="checkbox" name="aceptoPublicidad" value='' onChange={handleInput} />
+
 			<input type="submit" />
 		</form>
+		</div>
 	);
 }
 
