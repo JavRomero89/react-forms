@@ -1,43 +1,60 @@
-import { React, useState } from "react";
+import React, { useState } from 'react';
 
-function UserForm() {
+function UserForm({ setUsers }) {
 
-	const [user, setUser] = useState({});
+	const [user, setUser] = useState({
+        name: '',
+        email: '',
+        age: '',
+        telefono: '',
+        gender: '',
+        typeAccount: '',
+        aceptoPublicidad: false
+    });
 
 	const handleInput = (event) => {
-		const inputName = event.target.name;
-		setUser(prev => {
-			return {
-			...prev,
-			[inputName]: event.target.value
-			}
-		});
-	}
+		const value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
+		setUser({
+            ...user,
+            [e.target.name]: value
+        });
+    };
 
 	const handleSubmit = (event) => {
-		event.preventDefault();
+        event.preventDefault();
 		console.log(user);
-		// user: { 
-		//        	 name="...",
-		//	         email="...",
-		//	         age="..."
-		//        }
-	}
-  
+        setUsers(prevUsers => [...prevUsers, user]);
+        setUser({
+            name: '',
+            email: '',
+            age: '',
+            teléfono: '',
+            gender: '',
+            typeAccount: '',
+            aceptoPublicidad: false
+        });
+    };
 	return (
 		<form onSubmit={handleSubmit}>
 			<label>Enter your name:</label>
-			<input type="text" name="name" value={name} onChange={handleInput} />
+			<input type="text" name="name" value={user.name} onChange={handleInput} />
 	
 			<label>Enter your email:</label>
-			<input type="text" name="email" value={email} onChange={handleInput} />
+			<input type="text" name="email" value={user.email} onChange={handleInput} />
 	
 			<label>Enter your age:</label>
-			<input type="text" name="age" value={age} onChange={handleInput} />
+			<input type="text" name="age" value={user.age} onChange={handleInput} />
 
             <label>Enter your gender:</label>
-			<input type="radio" name="gender" value={gender} onChange={handleInput} />
-	
+			<label htmlFor="masculino">Masculino</label>
+			<input type="radio" name="gender" value='masculino' onChange={handleInput} />
+			<label htmlFor="femenino">Femenino</label>
+			<input type="radio" name="gender" value='femenino' onChange={handleInput} />
+			<label htmlFor="binario">Binario</label>
+			<input type="radio" name="gender" value='binario' onChange={handleInput} />
+			<label htmlFor="otro">Otro/Prefiero No Decirlo</label>
+			<input type="radio" name="gender" value='otro' onChange={handleInput} />
+
 			<input type="submit" />
 		</form>
 	);
